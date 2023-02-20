@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from flask import Flask, redirect, url_for, request, session, jsonify
 from flask_cors import CORS, cross_origin
 import json
-from bson import ObjectId
+from bson import ObjectId, _get_object_size
 from typing import Any
 import bcrypt
 from dotenv import load_dotenv
