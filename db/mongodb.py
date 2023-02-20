@@ -1,9 +1,9 @@
+from bson import ObjectId
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 import json
 from typing import Any
-from bson import ObjectId
 
 load_dotenv()
 MONGO_PW = os.getenv('MONGO_PW')

@@ -1,5 +1,5 @@
-from db.mongodb import get_user_collection, create_object
 from bson import ObjectId, json_util
+from db.mongodb import get_user_collection, create_object
 import bcrypt
 import json
 
