@@ -20,23 +20,23 @@ from modules.favorites import get_favorites, add_favorite, delete_favorite
 load_dotenv()
 
 
-application = Flask(__name__)
-application.secret_key = os.getenv('JWT_SECRET')
+app = Flask(__name__)
+app.secret_key = os.getenv('JWT_SECRET')
 JWT_SECRET = os.getenv("JWT_SECRET")
 
-cors = CORS(application)
-application.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 user_col = get_user_collection()
 record_col = get_record_collection()
 
 
-@application.route('/api/health')
+@app.route('/api/health')
 def health():
     return {"success": True, "message": "The server is up and running. It is healthy."}
 
 
-@application.route('/api/records', methods=['GET', 'POST'])
+@app.route('/api/records', methods=['GET', 'POST'])
 def records_route():
     if request.method == 'GET':
         records = get_all_records()
@@ -57,7 +57,7 @@ def records_route():
             return {"success": False, "message": "Admin access required"}, 401
 
 
-@application.route('/api/records/<record_id>', methods=['GET', 'PATCH', 'DELETE'])
+@app.route('/api/records/<record_id>', methods=['GET', 'PATCH', 'DELETE'])
 def album_route(record_id):
     if request.method == 'GET':
         album = get_single_record(record_id)
@@ -97,14 +97,14 @@ def album_route(record_id):
             return {"success": False, "message": "Admin access required"}, 401
 
 
-@application.route("/api/users", methods=["GET", "POST"])
+@app.route("/api/users", methods=["GET", "POST"])
 def users_route():
     if request.method == 'GET':
         users = get_all_users()
         return {"success": True, "data": users}
 
 
-@application.route('/api/users/<user_id>', methods=['GET', 'PATCH', 'DELETE'])
+@app.route('/api/users/<user_id>', methods=['GET', 'PATCH', 'DELETE'])
 def single_user_route(user_id):
     user_val = token_required()
     try:
@@ -140,7 +140,7 @@ def single_user_route(user_id):
     return {'success': False, 'message': 'Must be logged in to perform this action'}, 401
 
 
-@application.route("/api/users/register", methods=['POST'])
+@app.route("/api/users/register", methods=['POST'])
 def register():
     username = request.get_json()["username"]
     email = request.get_json()["email"]
@@ -169,7 +169,7 @@ def register():
         return {"success": False, "message": "Invalid input. Unable to register user"}, 500
 
 
-@application.route("/api/users/login", methods=["POST"])
+@app.route("/api/users/login", methods=["POST"])
 def login():
     messsage = 'Please login to your account'
     if request.method == "POST":
@@ -204,13 +204,13 @@ def login():
     return {"success": False, "message": message}
 
 
-@application.route("/api/users/logout", methods=["POST"])
+@app.route("/api/users/logout", methods=["POST"])
 def logout():
     session["email"] = None
     return {'success': True, 'message': 'User logged out'}
 
 
-@application.route('/api/messages', methods=['GET', 'POST', 'PATCH', 'DELETE'])
+@app.route('/api/messages', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def messages():
     user_val = token_required()
     try:
@@ -234,7 +234,7 @@ def messages():
             return {"success": False, "message": "Unable to send message"}, 404
 
 
-@application.route('/api/records/favorites', methods=['GET', 'POST', 'DELETE'])
+@app.route('/api/records/favorites', methods=['GET', 'POST', 'DELETE'])
 def favorite():
     user_val = token_required()
     try:
@@ -261,15 +261,15 @@ def favorite():
             return {"success": False, "message": "Unable to remove from favorites"}, 404
 
 
-@application.errorhandler(404)
+@app.errorhandler(404)
 def handle_404(e):
     return {'success': False, 'message': 'Error. Not found'}, 404
 
 
-@application.route("/")
+@app.route("/")
 def api_working():
     return "welcome to the recordX api"
 
 
 if __name__ == "__main__":
-    application.run(host='localhost', port=3500, debug=True)
+    app.run(host='localhost', port=3500, debug=True)
