@@ -272,4 +272,5 @@ def api_working():
 
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=3500, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='localhost', port=port, debug=True)
