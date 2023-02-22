@@ -6,7 +6,7 @@ sheet_id = "1ZlsxceBGl1kIs5-OA-PRI9dW3S1FdNgOASq2mkMrZck"
 sheet_name = "Sample_Record_Data"
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}".format()
 
-df = pd.read_csv(url)
+df = pd.read_csv(url, index_col=None)
 
 # record_data = df.to_dict()
 record_data = df.to_dict(orient="records")
