@@ -550,7 +550,7 @@ fetch('https://recordxapi.render.com/api/records/:recordId', {
   "success": True
 ```
 
-### **DELETE /api/users/records/:recordId** Admin required
+### **DELETE /api/users/records/:recordId** (Admin required)
 
 This route is used for an admin to delete a record entry. A valid token must be passed with this request or it will be rejected.
 
