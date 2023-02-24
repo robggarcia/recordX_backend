@@ -58,19 +58,23 @@ SUCCESS
 ### **POST /api/users/register**
 
 This route is used to create a new user account. On success, you will be given a JSON Web Token to be passed to the server for requests requiring authentication.
+
 **Request Parameters**
 
 - username (string, required): the desired username for the new user
 - email (string, required): the desired email for the new user
 - password (string, required): the desired password for the new user
-  **Return Parameters**
+
+**Return Parameters**
+
 - data (object)
   - \_id (ObjectId): the database identifier of the user
   - username (string): the username of the user
   - email (string): the email of the user
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/register', {
@@ -87,6 +91,7 @@ fetch('https://recordxapi.render.com/api/users/register', {
 ```
 
 **Sample Response**
+
 If the API creates a new user, the following object will be returned:
 
 ```
@@ -105,18 +110,22 @@ If the API creates a new user, the following object will be returned:
 ### **POST /api/users/login**
 
 This route is used for a user to login when they already have an account. On success, you will be given a JSON Web Token to be passed to the server for requests requiring authentication.
+
 **Request Parameters**
 
 - email (string, required): the registered email for the user
 - password (string, required): the matching password for the user
-  **Return Parameters**
+
+**Return Parameters**
+
 - data (object)
   - \_id (ObjectId): the database identifier of the user
   - username (string): the username of the user
   - email (string): the email of the user
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/login', {
@@ -132,6 +141,7 @@ fetch('https://recordxapi.render.com/api/users/login', {
 ```
 
 **Sample Response**
+
 If the API authenticates the email and password, the following object
 will be returned:
 
@@ -151,16 +161,21 @@ will be returned:
 ### **GET /api/users**
 
 Returns a list of all users in the database
+
 **Request Parameters**
+
 There are no request parameters
+
 **Return Parameters**
+
 (array of objects):
 
 - \_id (ObjectId): This is the database identifier for the user
 - username (string): This is the name of the user
 - email (string): This is the email of the user
 - admin (boolean): This value specifies if the user is an admin or not
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users', {
@@ -194,8 +209,11 @@ fetch('https://recordxapi.render.com/api/users', {
 ### **GET /api/users/:userId**
 
 This route is used to grab an already logged in user's relevant data. It is mostly helpful for verifying the user has a valid token (and is thus logged in). You must pass a valid token with this request, or it will be rejected.
+
 **Request Parameters**
+
 No request parameters necessary for this route.
+
 **Return Parameters**
 
 - data (object)
@@ -204,7 +222,8 @@ No request parameters necessary for this route.
   - email (string): the email of the user
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/:userId', {
@@ -236,20 +255,25 @@ fetch('https://recordxapi.render.com/api/users/:userId', {
 ### **PATCH /api/users/:userId**
 
 This route is used by the user to edit their profile information. You must pass a valid token with this request, or it will be rejected.
+
 **Request Parameters**
+
 Any of the following request parameters can be provided for this route
 
 - username (string): the updated username of the user
 - email (string): the updated email of the user
 - password (string): the updated password of the user
-  **Return Parameters**
+
+**Return Parameters**
+
 - data (object)
   - \_id (ObjectId): the database identifier of the user
   - username (string): the username of the user
   - email (string): the email of the user
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/:userId', {
@@ -282,13 +306,17 @@ fetch('https://recordxapi.render.com/api/users/:userId', {
 ### **DELETE /api/users/:userId**
 
 This route is used by admin to delete a specific user. You must pass a valid token with this request, or it will be rejected.
+
 **Request Parameters**
+
 No request parameters required.
+
 **Return Parameters**
 
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/:userId', {
@@ -313,15 +341,19 @@ fetch('https://recordxapi.render.com/api/users/:userId', {
 ### **POST /api/users/messages**
 
 This route is used for a user to send a message to another user. A valid token must be passed with this request or it will be rejected.
+
 **Request Parameters**
 
 - to_user (string, required): the name of the user to send message to
 - message (string, required): the message to send to the user
-  **Return Parameters**
+
+**Return Parameters**
+
 - data (object)
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/messages', {
@@ -338,6 +370,7 @@ fetch('https://recordxapi.render.com/api/users/messages', {
 ```
 
 **Sample Response**
+
 If the API sends the message to the intended user, the following object
 will be returned:
 
@@ -351,13 +384,17 @@ will be returned:
 ### **POST /api/users/favorites**
 
 This route is used for a user to add a record to their favorites list. A valid token must be passed with this request or it will be rejected.
+
 **Request Parameters**
 
 - title (string, required): the title of the album to favorite
-  **Return Parameters**
+
+**Return Parameters**
+
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/users/favorites', {
@@ -373,6 +410,7 @@ fetch('https://recordxapi.render.com/api/users/favorites', {
 ```
 
 **Sample Response**
+
 If the API adds the album to the users favorites list, the following object will be returned:
 
 ```
@@ -387,9 +425,13 @@ If the API adds the album to the users favorites list, the following object will
 ### **GET /api/records**
 
 Returns a list of all records in the database
+
 **Request Parameters**
+
 There are no request parameters
+
 **Return Parameters**
+
 (array of objects):
 
 - \_id (ObjectId): This is the database identifier for the record
@@ -399,7 +441,8 @@ There are no request parameters
 - cost (number): This is the cost of the record in dollars
 - quantity (number): This is the number of records available for sale
 - image_url (string): This is the url for a jpeg image of the album cover
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/records', {
@@ -469,7 +512,8 @@ This route is used for an admin to update a record entry. A valid token must be 
 - image_url (string): This is the updated url for a jpeg image of the album cover
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/records/:recordId', {
@@ -509,13 +553,17 @@ fetch('https://recordxapi.render.com/api/records/:recordId', {
 ### **DELETE /api/users/records/:recordId**
 
 This route is used for an admin to delete a record entry. A valid token must be passed with this request or it will be rejected.
+
 **Request Parameters**
+
 No Request parameters needed
+
 **Return Parameters**
 
 - message (string): the success message
 - success (boolean): notification if request was successful
-  **Sample Call**
+
+**Sample Call**
 
 ```
 fetch('https://recordxapi.render.com/api/records/:recordId', {
