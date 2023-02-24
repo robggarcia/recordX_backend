@@ -210,7 +210,7 @@ def logout():
     return {'success': True, 'message': 'User logged out'}
 
 
-@app.route('/api/messages', methods=['GET', 'POST', 'PATCH', 'DELETE'])
+@app.route('/api/messages', methods=['GET', 'POST'])
 def messages():
     user_val = token_required()
     try:
@@ -234,7 +234,7 @@ def messages():
             return {"success": False, "message": "Unable to send message"}, 404
 
 
-@app.route('/api/records/favorites', methods=['GET', 'POST', 'DELETE'])
+@app.route('/api/favorites', methods=['GET', 'POST', 'DELETE'])
 def favorite():
     user_val = token_required()
     try:
