@@ -448,6 +448,7 @@ fetch('https://recordxapi.render.com/api/records', {
 ### **PATCH /api/users/records/:recordId**
 
 This route is used for an admin to update a record entry. A valid token must be passed with this request or it will be rejected.
+
 **Request Parameters**
 
 - artist (string): This is the name of the band to update
@@ -456,7 +457,9 @@ This route is used for an admin to update a record entry. A valid token must be 
 - cost (number): This is the cost of the record in dollars to update
 - quantity (number): This is the number of records available for sale to update
 - image_url (string): This is the url for a jpeg image of the album cover to update
-  **Return Parameters**
+
+**Return Parameters**
+
 - \_id (ObjectId): This is the database identifier for the record
 - artist (string): This is the name of the updated band
 - album (string): This is the title of the updated record
