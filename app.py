@@ -97,11 +97,16 @@ def album_route(record_id):
             return {"success": False, "message": "Admin access required"}, 401
 
 
-@app.route("/api/users", methods=["GET", "POST"])
+@app.route("/api/users", methods=["GET"])
 def users_route():
+    user_val = token_required()
     if request.method == 'GET':
-        users = get_all_users()
-        return {"success": True, "data": users}
+        try:
+            user_val["admin"]
+            users = get_all_users()
+            return {"success": True, "data": users}
+        except:
+            return {"success": False, "message": "Admin token required"}, 401
 
 
 @app.route('/api/users/<user_id>', methods=['GET', 'PATCH', 'DELETE'])
