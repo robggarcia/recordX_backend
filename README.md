@@ -158,7 +158,7 @@ will be returned:
 }
 ```
 
-### **GET /api/users** \*Admin required
+### **GET /api/users** Admin required
 
 Returns a list of all users in the database
 
@@ -303,7 +303,7 @@ fetch('https://recordxapi.render.com/api/users/:userId', {
 }
 ```
 
-### **DELETE /api/users/:userId** \*Admin required
+### **DELETE /api/users/:userId** Admin required
 
 This route is used by admin to delete a specific user. You must pass a valid token with this request, or it will be rejected.
 
@@ -488,7 +488,7 @@ fetch('https://recordxapi.render.com/api/records', {
 }
 ```
 
-### **PATCH /api/users/records/:recordId** \*Admin required
+### **PATCH /api/users/records/:recordId** (Admin required)
 
 This route is used for an admin to update a record entry. A valid token must be passed with this request or it will be rejected.
 
@@ -550,7 +550,7 @@ fetch('https://recordxapi.render.com/api/records/:recordId', {
   "success": True
 ```
 
-### **DELETE /api/users/records/:recordId** \*Admin required
+### **DELETE /api/users/records/:recordId** Admin required
 
 This route is used for an admin to delete a record entry. A valid token must be passed with this request or it will be rejected.
 
