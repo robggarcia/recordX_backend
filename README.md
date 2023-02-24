@@ -11,7 +11,7 @@ When using the API, many calls are made in the context of a registered user. The
 A sample request with an authorization token looks like this:
 
 ```
-fetch('https://recordxapi.render.com/api/users',
+fetch('https://recordxapi.onrender.com/api/users',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ This route is used to create a new user account. On success, you will be given a
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/register', {
+fetch('https://recordxapi.onrender.com/api/users/register', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ This route is used for a user to login when they already have an account. On suc
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/login', {
+fetch('https://recordxapi.onrender.com/api/users/login', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json'
@@ -178,7 +178,7 @@ There are no request parameters
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users', {
+fetch('https://recordxapi.onrender.com/api/users', {
   headers: {
     'Content-Type': 'application/json',
   },
@@ -226,7 +226,7 @@ No request parameters necessary for this route.
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/:userId', {
+fetch('https://recordxapi.onrender.com/api/users/:userId', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json'
@@ -276,7 +276,7 @@ Any of the following request parameters can be provided for this route
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/:userId', {
+fetch('https://recordxapi.onrender.com/api/users/:userId', {
   method: "PATCH",
   headers: {
     'Content-Type': 'application/json'
@@ -319,7 +319,7 @@ No request parameters required.
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/:userId', {
+fetch('https://recordxapi.onrender.com/api/users/:userId', {
   method: "DELETE",
   headers: {
     'Content-Type': 'application/json'
@@ -356,7 +356,7 @@ This route is used for a user to send a message to another user. A valid token m
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/messages', {
+fetch('https://recordxapi.onrender.com/api/users/messages', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json',
@@ -397,7 +397,7 @@ This route is used for a user to add a record to their favorites list. A valid t
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/users/favorites', {
+fetch('https://recordxapi.onrender.com/api/users/favorites', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json',
@@ -445,7 +445,7 @@ There are no request parameters
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/records', {
+fetch('https://recordxapi.onrender.com/api/records', {
   headers: {
     'Content-Type': 'application/json',
   },
@@ -516,7 +516,7 @@ This route is used for an admin to update a record entry. A valid token must be 
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/records/:recordId', {
+fetch('https://recordxapi.onrender.com/api/records/:recordId', {
   method: "PATCH",
   headers: {
     'Content-Type': 'application/json',
@@ -566,7 +566,7 @@ No Request parameters needed
 **Sample Call**
 
 ```
-fetch('https://recordxapi.render.com/api/records/:recordId', {
+fetch('https://recordxapi.onrender.com/api/records/:recordId', {
   method: "DELETE",
   headers: {
     'Content-Type': 'application/json',
