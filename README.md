@@ -53,6 +53,169 @@ SUCCESS
 }
 ```
 
+## Record Endpoints
+
+### **GET /api/records**
+
+Returns a list of all records in the database
+
+**Request Parameters**
+
+There are no request parameters
+
+**Return Parameters**
+
+(array of objects):
+
+- \_id (ObjectId): This is the database identifier for the record
+- artist (string): This is the name of the band
+- album (string): This is the title of the record
+- genre (string): This is the genre of the music
+- cost (number): This is the cost of the record in dollars
+- quantity (number): This is the number of records available for sale
+- image_url (string): This is the url for a jpeg image of the album cover
+
+**Sample Call**
+
+```
+fetch('https://recordxapi.onrender.com/api/records', {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+```
+
+**Sample Response**
+
+```
+{
+  "data": [
+    {
+      "_id": "63f56015aa62ef6e9c5f722f",
+      "album": "Freedom Of Choice",
+      "artist": "Devo",
+      "cost": 12.99,
+      "format": "LP",
+      "genre": [
+        "new_wave",
+        "electronic"
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/en/7/70/DevoFreedomofChoice.jpg",
+      "quantity": 200
+    },
+    {
+      "_id": "63f56015aa62ef6e9c5f7231",
+      "album": "Loaded",
+      "artist": "The Velvet Underground",
+      "cost": 12.99,
+      "format": "LP",
+      "genre": [
+        "psychedelic",
+        "pop"
+      ],
+      "image_url": "https://upload.wikimedia.org/wikipedia/en/7/71/Loadedalbum.jpg",
+      "quantity": 78
+    },
+  ],
+  "success": true
+}
+```
+
+### **PATCH /api/users/records/:recordId** (Admin required)
+
+This route is used for an admin to update a record entry. A valid token must be passed with this request or it will be rejected.
+
+**Request Parameters**
+
+- artist (string): This is the name of the band to update
+- album (string): This is the title of the record to update
+- genre (string): This is the genre of the music to update
+- cost (number): This is the cost of the record in dollars to update
+- quantity (number): This is the number of records available for sale to update
+- image_url (string): This is the url for a jpeg image of the album cover to update
+
+**Return Parameters**
+
+- \_id (ObjectId): This is the database identifier for the record
+- artist (string): This is the name of the updated band
+- album (string): This is the title of the updated record
+- genre (string): This is the updated genre of the music
+- cost (number): This is the updated cost of the record in dollars
+- quantity (number): This is the updated number of records available for sale
+- image_url (string): This is the updated url for a jpeg image of the album cover
+- message (string): the success message
+- success (boolean): notification if request was successful
+
+**Sample Call**
+
+```
+fetch('https://recordxapi.onrender.com/api/records/:recordId', {
+  method: "PATCH",
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'TOKEN_STRING_HERE'
+  },
+  body: JSON.stringify({
+    quantity: 5,
+  })
+})
+```
+
+**Sample Response**
+
+```
+{
+  "data": {
+    "_id": "63f56015aa62ef6e9c5f7232",
+    "album": "Empire",
+    "artist": "Unwound",
+    "cost": 12.99,
+    "format": "LP",
+    "genre": [
+      "rock",
+      "post_rock"
+    ],
+    "image_url":
+    "https://media.pitchfork.com/photos/5929b0a2b1335d7bf169a158/1:1/w_600/b9d0b258.jpg",
+    "quantity": 5
+  },
+  "message": "Record updated successfully",
+  "success": True
+```
+
+### **DELETE /api/users/records/:recordId** (Admin required)
+
+This route is used for an admin to delete a record entry. A valid token must be passed with this request or it will be rejected.
+
+**Request Parameters**
+
+No Request parameters needed
+
+**Return Parameters**
+
+- message (string): the success message
+- success (boolean): notification if request was successful
+
+**Sample Call**
+
+```
+fetch('https://recordxapi.onrender.com/api/records/:recordId', {
+  method: "DELETE",
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'TOKEN_STRING_HERE'
+  },
+})
+```
+
+**Sample Response**
+
+```
+{
+  "message": "Record deleted successfully",
+  "success": True
+```
+
 ## User Endpoints
 
 ### **POST /api/users/register**
@@ -338,6 +501,59 @@ fetch('https://recordxapi.onrender.com/api/users/:userId', {
 }
 ```
 
+## Messages Endpoints
+
+### **GET /api/messages**
+
+This route is used to view all messages for a specific user. A valid token must be passed with this request or it will be rejected.
+
+**Request Parameters**
+
+No request parameters required
+
+**Return Parameters**
+
+- data (object)
+- message (string): the success message
+- success (boolean): notification if request was successful
+
+**Sample Call**
+
+```
+fetch('https://recordxapi.onrender.com/api/messages', {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'TOKEN_STRING_HERE'
+  },
+})
+```
+
+**Sample Response**
+
+```
+{
+  "data": {
+    "_id": {
+      "$oid": "63f56017aa62ef6e9c5f7235"
+    },
+    "messages": [
+      {
+        "from_user": "Petie",
+        "message": "Have you heard of the band The Oh Sees? They are my favorite."
+      },
+      {
+        "from_user": "rob",
+        "message": "The Oh Sees are definitely one of the best current live bands"
+      }
+    ],
+    "username": "tilly"
+  },
+  "success": true,
+  "username": "tilly"
+}
+```
+
 ### **POST /api/users/messages**
 
 This route is used for a user to send a message to another user. A valid token must be passed with this request or it will be rejected.
@@ -381,13 +597,75 @@ will be returned:
 }
 ```
 
-### **POST /api/users/favorites**
+## Favorites Endpoints
+
+### **GET /api/favorites**
+
+This route is used to view all favorited albums for a specific user. A valid token must be passed with this request or it will be rejected.
+
+**Request Parameters**
+
+No request parameters required
+
+**Return Parameters**
+
+- data (object)
+- message (string): the success message
+- success (boolean): notification if request was successful
+
+**Sample Call**
+
+```
+fetch('https://recordxapi.onrender.com/api/favorites', {
+  method: "GET",
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': 'TOKEN_STRING_HERE'
+  },
+})
+```
+
+**Sample Response**
+
+```
+{
+  "data": {
+    "_id": {
+      "$oid": "63f56017aa62ef6e9c5f7235"
+    },
+    "favorites": [
+      {
+        "record": {
+          "_id": {
+            "$oid": "63f56015aa62ef6e9c5f722f"
+          },
+          "album": "Freedom Of Choice",
+          "artist": "Devo",
+          "cost": 12.99,
+          "format": "LP",
+          "genre": [
+            "new_wave",
+            "electronic"
+          ],
+          "image_url": "https://upload.wikimedia.org/wikipedia/en/7/70/DevoFreedomofChoice.jpg",
+          "quantity": 200
+        },
+        "record_id": "63f56015aa62ef6e9c5f722f"
+      }
+    ],
+    "username": "tilly"
+  },
+  "success": true
+}
+```
+
+### **POST /api/favorites**
 
 This route is used for a user to add a record to their favorites list. A valid token must be passed with this request or it will be rejected.
 
 **Request Parameters**
 
-- title (string, required): the title of the album to favorite
+- record_id (string, required): the id of the album to favorite
 
 **Return Parameters**
 
@@ -404,7 +682,7 @@ fetch('https://recordxapi.onrender.com/api/users/favorites', {
     'x-access-token': 'TOKEN_STRING_HERE'
   },
   body: JSON.stringify({
-    title: 'Duty Now For The Future',
+    record_id: '63f56015aa62ef6e9c5f7231',
   })
 })
 ```
@@ -415,170 +693,46 @@ If the API adds the album to the users favorites list, the following object will
 
 ```
 {
-  "message": "Album successfully added to favorites",
-  "success": True,
-}
-```
-
-## Record Endpoints
-
-### **GET /api/records**
-
-Returns a list of all records in the database
-
-**Request Parameters**
-
-There are no request parameters
-
-**Return Parameters**
-
-(array of objects):
-
-- \_id (ObjectId): This is the database identifier for the record
-- artist (string): This is the name of the band
-- album (string): This is the title of the record
-- genre (string): This is the genre of the music
-- cost (number): This is the cost of the record in dollars
-- quantity (number): This is the number of records available for sale
-- image_url (string): This is the url for a jpeg image of the album cover
-
-**Sample Call**
-
-```
-fetch('https://recordxapi.onrender.com/api/records', {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-```
-
-**Sample Response**
-
-```
-{
-  "data": [
-    {
-      "_id": "63f56015aa62ef6e9c5f722f",
-      "album": "Freedom Of Choice",
-      "artist": "Devo",
-      "cost": 12.99,
-      "format": "LP",
-      "genre": [
-        "new_wave",
-        "electronic"
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/en/7/70/DevoFreedomofChoice.jpg",
-      "quantity": 200
-    },
-    {
-      "_id": "63f56015aa62ef6e9c5f7231",
-      "album": "Loaded",
-      "artist": "The Velvet Underground",
-      "cost": 12.99,
-      "format": "LP",
-      "genre": [
-        "psychedelic",
-        "pop"
-      ],
-      "image_url": "https://upload.wikimedia.org/wikipedia/en/7/71/Loadedalbum.jpg",
-      "quantity": 78
-    },
-  ],
+  "message": "Album added to favorites",
   "success": true
 }
 ```
 
-### **PATCH /api/users/records/:recordId** (Admin required)
+### **DELETE /api/favorites**
 
-This route is used for an admin to update a record entry. A valid token must be passed with this request or it will be rejected.
+This route is used for a user to remove a record from their favorites list. A valid token must be passed with this request or it will be rejected.
 
 **Request Parameters**
 
-- artist (string): This is the name of the band to update
-- album (string): This is the title of the record to update
-- genre (string): This is the genre of the music to update
-- cost (number): This is the cost of the record in dollars to update
-- quantity (number): This is the number of records available for sale to update
-- image_url (string): This is the url for a jpeg image of the album cover to update
+- record_id (string, required): the id of the album to favorite
 
 **Return Parameters**
 
-- \_id (ObjectId): This is the database identifier for the record
-- artist (string): This is the name of the updated band
-- album (string): This is the title of the updated record
-- genre (string): This is the updated genre of the music
-- cost (number): This is the updated cost of the record in dollars
-- quantity (number): This is the updated number of records available for sale
-- image_url (string): This is the updated url for a jpeg image of the album cover
 - message (string): the success message
 - success (boolean): notification if request was successful
 
 **Sample Call**
 
 ```
-fetch('https://recordxapi.onrender.com/api/records/:recordId', {
-  method: "PATCH",
+fetch('https://recordxapi.onrender.com/api/users/favorites', {
+  method: "DELETE",
   headers: {
     'Content-Type': 'application/json',
     'x-access-token': 'TOKEN_STRING_HERE'
   },
   body: JSON.stringify({
-    quantity: 5,
+    record_id: '63f56015aa62ef6e9c5f7231',
   })
 })
 ```
 
 **Sample Response**
 
-```
-{
-  "data": {
-    "_id": "63f56015aa62ef6e9c5f7232",
-    "album": "Empire",
-    "artist": "Unwound",
-    "cost": 12.99,
-    "format": "LP",
-    "genre": [
-      "rock",
-      "post_rock"
-    ],
-    "image_url":
-    "https://media.pitchfork.com/photos/5929b0a2b1335d7bf169a158/1:1/w_600/b9d0b258.jpg",
-    "quantity": 5
-  },
-  "message": "Record updated successfully",
-  "success": True
-```
-
-### **DELETE /api/users/records/:recordId** (Admin required)
-
-This route is used for an admin to delete a record entry. A valid token must be passed with this request or it will be rejected.
-
-**Request Parameters**
-
-No Request parameters needed
-
-**Return Parameters**
-
-- message (string): the success message
-- success (boolean): notification if request was successful
-
-**Sample Call**
-
-```
-fetch('https://recordxapi.onrender.com/api/records/:recordId', {
-  method: "DELETE",
-  headers: {
-    'Content-Type': 'application/json',
-    'x-access-token': 'TOKEN_STRING_HERE'
-  },
-})
-```
-
-**Sample Response**
+If the API deletes the album from the users favorites list, the following object will be returned:
 
 ```
 {
-  "message": "Record deleted successfully",
-  "success": True
+  "message": "Album removed to favorites",
+  "success": true
+}
 ```
