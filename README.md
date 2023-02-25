@@ -356,7 +356,7 @@ This route is used for a user to send a message to another user. A valid token m
 **Sample Call**
 
 ```
-fetch('https://recordxapi.onrender.com/api/users/messages', {
+fetch('https://recordxapi.onrender.com/api/messages', {
   method: "POST",
   headers: {
     'Content-Type': 'application/json',

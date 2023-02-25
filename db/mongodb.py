@@ -6,16 +6,16 @@ import json
 from typing import Any
 
 load_dotenv()
+
 MONGO_PW = os.getenv('MONGO_PW')
-print(MONGO_PW)
 MONGO_URI = f'mongodb+srv://yoshi:{MONGO_PW}@cluster0.tvnuyyw.mongodb.net/?retryWrites=true&w=majority'
 
 # set a 5-second connection timeout
 mongoClient = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
 try:
     print(mongoClient.server_info())
-    # for db_name in mongoClient.list_database_names():
-    #     print(db_name)
+    for db_name in mongoClient.list_database_names():
+        print(db_name)
 except Exception:
     print("Unable to connect to the server.")
 
