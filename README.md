@@ -1,4 +1,4 @@
-# RecordXc API Documentation
+# RecordX API Documentation
 
 ## Introduction
 

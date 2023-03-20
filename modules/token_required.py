@@ -10,7 +10,7 @@ load_dotenv()
 JWT_SECRET = os.getenv("JWT_SECRET")
 
 
-# decorator for verifying the JWT
+# verifying the JWT
 def token_required():
     token = None
     try:
@@ -27,30 +27,3 @@ def token_required():
         return user
     except:
         return {'success': False, '_id': 0, "message": "Invalid Token"}
-
-    # @wraps(f)
-    # def decorated(*args, **kwargs):
-    #     token = None
-    #     # jwt is passed in the request header
-    #     if 'x-access-token' in request.headers:
-    #         token = request.headers['x-access-token']
-    #         print(token)
-    #     # return 401 if token is not passed
-    #     if not token:
-    #         return jsonify({'message': 'Token is missing !!'}), 401
-
-    #     try:
-    #         # decoding the payload to fetch the stored details
-    #         data = jwt.decode(jwt=token, secret=JWT_SECRET, algorithm="HS256")
-    #         print(data)
-    #         # current_user = User.query\
-    #         #     .filter_by(public_id = data['public_id'])\
-    #         #     .first()
-    #     except:
-    #         return jsonify({
-    #             'message': 'Token is invalid !!'
-    #         }), 401
-    #     # returns the current logged in users context to the routes
-    #     return f(data, *args, **kwargs)
-
-    return decorated

@@ -181,10 +181,6 @@ def login():
         email = request.get_json()["email"]
         password = request.get_json()["password"]
 
-        # if session["email"] == email:
-        #     # return redirect(url_for("logged_in"))
-        #     return "User already logged in"
-
         email_found = user_col.find_one({"email": email})
         if email_found:
             email_val = email_found["email"]
@@ -196,11 +192,13 @@ def login():
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
 
                 token = jwt.encode(
-                    {"_id": _id, "email": email_val, "username": username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=45)}, JWT_SECRET, algorithm="HS256")
+                    {"_id": _id,
+                     "email": email_val,
+                     "username": username,
+                     'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=45)},
+                    JWT_SECRET, algorithm="HS256")
                 return {"success": True, "message": f"User logged in with email: {email_val}", "token": token}
             else:
-                # if "email" in session:
-                #     return "already logged in"
                 message = 'Wrong password'
                 return {"success": False, "message": message}
         else:
